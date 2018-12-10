@@ -1,0 +1,15 @@
+//@version=3
+study(title="Accumulation/Distribution", shorttitle="Accum/Dist", overlay=false)
+ad = cum(close==high and close==low or high==low ? 0 : ((2*close-low-high)/(high-low))*volume)
+plot(ad, title = "Accumulation/Distribution", style=area, offset=15, color=olive)
+barcolor(close < open ? green : red)
+leftBars = input(2)
+rightBars=input(2)
+barssince(close >= open)
+plot(sma(close, 15))
+plot(timestamp(2017, 01, 19, 12, 18),linewidth=12,color=green)
+plot(timestamp(syminfo.timezone,2016, 01, 19, 09, 30),color=blue)
+plot(vwma(close, 15))
+pine_vwma(x, y) =>
+    sma(x * volume, y) / sma(volume, y)
+plot(pine_vwma(close, 10))
